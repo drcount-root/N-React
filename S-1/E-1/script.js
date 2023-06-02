@@ -1,5 +1,5 @@
 /*
-// select the body element
+// this is how to select the body element
 const body = document.body;
 
 // Manipulate the body element
