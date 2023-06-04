@@ -1,0 +1,40 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #611438;
+  height: 100px;
+}
+
+.logo_container {
+  display: flex;
+}
+
+.logo {
+  width: 120px;
+}
+
+.nav_items > ul {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  color: snow;
+}
+
+.nav_items > ul > li {
+  padding: 20px;
+  margin: 10px;
+  font-size: 22px;
+}
+
+.cart {
+  width: 50px;
+  border-radius: 50%;
+}
