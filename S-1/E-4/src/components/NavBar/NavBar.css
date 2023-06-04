@@ -1,0 +1,57 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #630d3c;
+  height: 95px;
+}
+
+.logo_container {
+  display: flex;
+}
+
+.logo {
+  width: 120px;
+}
+
+.nav_items > ul {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  color: snow;
+}
+
+.nav_items > ul > li {
+  padding: 20px;
+  margin: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.search_container {
+  position: relative;
+  display: inline-block;
+}
+
+.search_bar {
+  padding: 12px;
+  border: 1px solid white;
+  border-radius: 9px;
+  width: 300px;
+  font-size: 18px;
+}
+
+.search_icon {
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Adjust this value to position the search icon */
+  transform: translateY(-50%);
+  width: 20px; /* Adjust this value to resize the search icon */
+  height: auto;
+  cursor: pointer;
+}
+
+.cart {
+  width: 40px;
+  border-radius: 50%;
+}
