@@ -6,63 +6,67 @@ import data from "../../../src/db/dummy_data.json";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import './Header.css'
+import "./Header.css";
 
 // import required modules
 import { Autoplay } from "swiper";
 
 const Header = () => {
   const rendered = useRef(false);
-  const [restaurantName, setRestaurantName] = useState("");
-  const [restaurantImage, setRestaurantImage] = useState("");
-  const [restaurantRating, setRestaurantRating] = useState("");
-  const [restaurantRatingVotes, setRestaurantRatingVotes] = useState("");
-  const [restaurantRatingSubtext, setRestaurantRatingSubtext] = useState("");
-  const [restaurantLocation, setRestaurantLocation] = useState("");
-  const [cfo, setCfo] = useState("");
-  const [cft, setCft] = useState("");
+  interface resturantInterface {
+    restaurantName: string;
+    restaurantImage: string;
+    restaurantRating: string;
+    restaurantRatingVotes: string;
+    restaurantRatingSubtext: string;
+    restaurantLocation: string;
+    cfo: string;
+    cft: string;
+  }
+
+  const [restaurantObj, setRestaurantObj] = useState<resturantInterface>({
+    restaurantName: "",
+    restaurantImage: "",
+    restaurantRating: "",
+    restaurantRatingVotes: "",
+    restaurantRatingSubtext: "",
+    restaurantLocation: "",
+    cfo: "",
+    cft: "",
+  });
 
   useEffect(() => {
     if (!rendered.current) {
       console.log(data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]);
 
-      setRestaurantName(
-        data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["name"]
-      );
-
-      setRestaurantImage(
-        data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["image"]["url"]
-      );
-
-      setRestaurantRating(
-        data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["rating"][
-          "aggregate_rating"
-        ]
-      );
-
-      setRestaurantRatingVotes(
-        data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["rating"]["votes"]
-      );
-
-      setRestaurantRatingSubtext(
-        data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["rating"][
-          "subtext"
-        ]
-      );
-
-      setRestaurantLocation(
-        data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["locality"][
-          "address"
-        ]
-      );
-
-      setCfo(
-        data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["cfo"]["text"]
-      );
-
-      setCft(
-        data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["cft"]["text"]
-      );
+      setRestaurantObj({
+        restaurantName:
+          data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["name"],
+        restaurantImage:
+          data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["image"]["url"],
+        restaurantRating:
+          data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["rating"][
+            "aggregate_rating"
+          ],
+        restaurantRatingVotes:
+          data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["rating"][
+            "votes"
+          ],
+        restaurantRatingSubtext:
+          data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["rating"][
+            "subtext"
+          ],
+        restaurantLocation:
+          data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["locality"][
+            "address"
+          ],
+        cfo: data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["cfo"][
+          "text"
+        ],
+        cft: data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["cft"][
+          "text"
+        ],
+      });
     }
 
     return () => {
@@ -86,17 +90,19 @@ const Header = () => {
       </div>
       <div className="bg-amber-100 w-[20rem] border-0 rounded-lg">
         <img
-          src={restaurantImage}
+          src={restaurantObj.restaurantImage}
           width={400}
           className="border-0 rounded-t-lg"
         />
         <h2 className="font-medium text-2xl px-4 pt-4 pb-2">
-          {restaurantName}
+          {restaurantObj.restaurantName}
         </h2>
         <p className="px-4 py-[6px]">
-          {restaurantRating} ({restaurantRatingVotes} {restaurantRatingSubtext})
+          {restaurantObj.restaurantRating} (
+          {restaurantObj.restaurantRatingVotes}{" "}
+          {restaurantObj.restaurantRatingSubtext})
         </p>
-        <p className="px-4 pt-[6px] pb-4">{restaurantLocation}</p>
+        <p className="px-4 pt-[6px] pb-4">{restaurantObj.restaurantLocation}</p>
         <div className="">
           <Swiper
             centeredSlides={true}
@@ -107,8 +113,8 @@ const Header = () => {
             modules={[Autoplay]}
             className="mySwiper"
           >
-            <SwiperSlide>{cfo}</SwiperSlide>
-            <SwiperSlide>{cft}</SwiperSlide>
+            <SwiperSlide>{restaurantObj.cfo}</SwiperSlide>
+            <SwiperSlide>{restaurantObj.cft}</SwiperSlide>
           </Swiper>
         </div>
       </div>
