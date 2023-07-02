@@ -7,22 +7,21 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./Header.css";
-
 // import required modules
 import { Autoplay } from "swiper";
+interface resturantInterface {
+  restaurantName: string;
+  restaurantImage: string;
+  restaurantRating: string;
+  restaurantRatingVotes: string;
+  restaurantRatingSubtext: string;
+  restaurantLocation: string;
+  cfo: string;
+  cft: string;
+}
 
 const Header = () => {
   const rendered = useRef(false);
-  interface resturantInterface {
-    restaurantName: string;
-    restaurantImage: string;
-    restaurantRating: string;
-    restaurantRatingVotes: string;
-    restaurantRatingSubtext: string;
-    restaurantLocation: string;
-    cfo: string;
-    cft: string;
-  }
 
   const [restaurantObj, setRestaurantObj] = useState<resturantInterface>({
     restaurantName: "",
@@ -37,35 +36,20 @@ const Header = () => {
 
   useEffect(() => {
     if (!rendered.current) {
-      console.log(data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]);
+      console.log(data["sections"]["SECTION_SEARCH_RESULT"]);
 
-      setRestaurantObj({
-        restaurantName:
-          data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["name"],
-        restaurantImage:
-          data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["image"]["url"],
-        restaurantRating:
-          data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["rating"][
-            "aggregate_rating"
-          ],
-        restaurantRatingVotes:
-          data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["rating"][
-            "votes"
-          ],
-        restaurantRatingSubtext:
-          data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["rating"][
-            "subtext"
-          ],
-        restaurantLocation:
-          data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["locality"][
-            "address"
-          ],
-        cfo: data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["cfo"][
-          "text"
-        ],
-        cft: data["sections"]["SECTION_SEARCH_RESULT"][0]["info"]["cft"][
-          "text"
-        ],
+      data["sections"]["SECTION_SEARCH_RESULT"].forEach((restaurant, index) => {
+        console.log(restaurant, index);
+        setRestaurantObj({
+          restaurantName: restaurant["info"]["name"],
+          restaurantImage: restaurant["info"]["image"]["url"],
+          restaurantRating: restaurant["info"]["rating"]["aggregate_rating"],
+          restaurantRatingVotes: restaurant["info"]["rating"]["votes"],
+          restaurantRatingSubtext: restaurant["info"]["rating"]["subtext"],
+          restaurantLocation: restaurant["info"]["locality"]["address"],
+          cfo: restaurant["info"]["cfo"]["text"],
+          cft: restaurant["info"]["cft"]["text"],
+        });
       });
     }
 
@@ -100,10 +84,12 @@ const Header = () => {
         <p className="px-4 py-[6px]">
           {restaurantObj.restaurantRating} (
           {restaurantObj.restaurantRatingVotes}{" "}
-          {restaurantObj.restaurantRatingSubtext})
+          {restaurantObj.restaurantRatingSubtext[0] +
+            restaurantObj.restaurantRatingSubtext.slice(1).toLocaleLowerCase()}
+          )
         </p>
         <p className="px-4 pt-[6px] pb-4">{restaurantObj.restaurantLocation}</p>
-        <div className="">
+        <div>
           <Swiper
             centeredSlides={true}
             autoplay={{
